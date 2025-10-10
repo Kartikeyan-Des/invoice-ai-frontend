@@ -1,25 +1,29 @@
 // app.routes.ts
 import { Routes } from '@angular/router';
 import { provideRouter, RouterModule } from '@angular/router';
-// import { LayoutComponent } from './layout/layout.component';
-// import { LoginComponent } from './auth/login/login.component';
-// import { AuthGuard } from './core/guards/auth.guard';
-import { provideAnimations } from '@angular/platform-browser/animations';
+import { Layout } from './layout/layout';
+import { Dashboard } from './dashboard/dashboard';
+import { Login } from './Auth/login/login';
+import { APP_ROUTES } from './utils/app.constants';
+
 
 export const appRoutes: Routes = [
-  // { path: 'login', component: LoginComponent, standalone: true },
-  // {
-  //   path: '',
-  //   component: LayoutComponent,
-  //   canActivate: [AuthGuard],
-  //   children: [
-  //     { path: 'dashboard', loadComponent: () => import('./dashboard/dashboard.component').then(m => m.DashboardComponent) },
-  //     { path: 'invoices', loadComponent: () => import('./invoices/invoices.component').then(m => m.InvoicesComponent) },
-  //     { path: 'vendors', loadComponent: () => import('./vendors/vendors.component').then(m => m.VendorsComponent) },
-  //     { path: 'expenses', loadComponent: () => import('./expenses/expenses.component').then(m => m.ExpensesComponent) },
-  //     { path: 'ai-assistant', loadComponent: () => import('./ai-assistant/ai-assistant.component').then(m => m.AiAssistantComponent) },
-  //     { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-  //   ]
-  // },
-  // { path: '**', redirectTo: 'login' }
+  // Redirect root ("/") to the login page
+  { path: '', redirectTo: APP_ROUTES.LOGIN, pathMatch: 'full' },
+
+  // Login page (standalone, no header/sidebar)
+  { path: APP_ROUTES.LOGIN, component: Login },
+
+  // Protected layout (after login)
+  {
+    path: APP_ROUTES.HOME,
+    component: Layout, // acts as shell layout
+    children: [
+      { path: APP_ROUTES.DASHBOARD, component: Dashboard },
+      // add more routes here later:
+      // { path: APP_ROUTES.INVOICES, component: InvoicesComponent },
+      // { path: APP_ROUTES.EXPENSES, component: ExpensesComponent },
+    ],
+  },
 ];
+

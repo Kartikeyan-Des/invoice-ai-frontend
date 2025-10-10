@@ -1,0 +1,23 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.main-section {
+  display: flex;
+  flex: 1;
+}
+
+app-sidebar {
+  width: 240px;
+  background-color: #1e1e2f;
+  color: white;
+}
+
+.content-area {
+  flex: 1;
+  padding: 20px;
+  background-color: #f4f5fa;
+  overflow-y: auto;
+}
